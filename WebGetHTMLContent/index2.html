@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Web Get HTML Content</title>
+</head>
+<body style="width: 100%; padding: 0; margin: 0;">
+    <div style="width: inherit; height: 60px; text-align: center; background-color: #ffffff; border-bottom: 5px solid #000000; position: fixed;">
+        <span style="font-size: 40px; line-height: 60px;">
+            <b>Horror Mankind666</b>
+        </span>
+    </div>
+    <div id="divContent" style="padding-top: 80px; text-align: center;"></div>
+</body>
+</html>
+<script type="text/javascript">
+    function fetchDataWithXHR (
+        url,
+        callback
+    ) {
+        const xhr = new XMLHttpRequest();
+
+        xhr.open('GET', url, true);
+        xhr.onload = function () {
+            if (xhr.status >= 200 && xhr.status < 300)
+                callback(null, xhr.responseText);
+            else
+                callback(new Error(`HTTP error! Status: ${xhr.status}`), null);
+        };
+        xhr.onerror = function () {
+            console.log('Network error occurred');
+            callback(new Error('Network error occurred'), null);
+        };
+        xhr.send();
+    }
+
+    fetchDataWithXHR('ThaiD.Management.htm', (error, data) => {
+        if (error)
+            console.error('Error fetching data:', error);
+        else
+            document.getElementById('divContent').innerHTML = data;
+   });
+</script>
